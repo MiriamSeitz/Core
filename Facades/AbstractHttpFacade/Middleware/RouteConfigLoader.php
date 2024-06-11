@@ -65,11 +65,13 @@ class RouteConfigLoader implements MiddlewareInterface
         $path = $request->getUri()->getPath();
         $path = StringDataType::substringAfter($path, $this->facade->getUrlRouteDefault() . '/', '');   
         $routeData = $this->getRouteData($path);
-        
+
+        // process webservice configuration
         if (null !== $json = $routeData[$this->routeConfigAttributeAlias]) {
             $this->facade->importUxonObject(UxonObject::fromJson($json));
         }
-        
+
+        // add webservice request attributes to server request
         return $handler->handle($request->withAttribute($this->storeInRequestAttr, $routeData));
     }
     
