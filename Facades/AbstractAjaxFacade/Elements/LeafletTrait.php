@@ -1,8 +1,10 @@
 <?php
 namespace exface\Core\Facades\AbstractAjaxFacade\Elements;
 
+use exface\Core\Exceptions\NotImplementedError;
 use exface\Core\Interfaces\Widgets\iCanBlink;
 use exface\Core\Widgets\Parts\Maps\DataMarkersLayer;
+use exface\Core\Widgets\Parts\Maps\ImageOverlayLayer;
 use exface\Core\Widgets\Parts\Maps\Interfaces\MapLayerInterface;
 use exface\Core\Events\Facades\OnFacadeWidgetRendererExtendedEvent;
 use exface\Core\Interfaces\WidgetInterface;
@@ -120,6 +122,7 @@ trait LeafletTrait
         $this->addLeafletLayerRenderer([$this, 'buildJsLayerDataMarkers']);
         $this->addLeafletLayerRenderer([$this, 'buildJsLayerDataPaths']);
         $this->addLeafletLayerRenderer([$this, 'buildJsLayerDataGeoJson']);
+        $this->addLeafletLayerRenderer([$this, 'buildJsLayerImageOverlay']);
         return;
     }
     
@@ -1721,6 +1724,34 @@ JS;
     {
         return "{$this->buildJsLeafletVar()}.invalidateSize()";
     }
+
+
+    protected function buildJsLayerImageOverlay(MapLayerInterface $layer) : ?string
+    {
+        if (!($layer instanceof ImageOverlayLayer)) {
+            return null;
+        }
+
+        // TODO
+    }
+
+    public function buildJsImageOverlay($layer) : string
+    {
+        switch (true) {
+            case ($layer instanceof ImageOverlayLayer):
+                $js = <<<JS
+function(){
+                            return L.imageOverlay({
+                                url: {$layer->getImagePath()},
+                                bounds: {$layer->getImageBounds()}
+                            })
+                        }()
+JS;
+                break;
+            default:
+                throw new NotImplementedError("Cannot add ImageOverlay with layer \"" . get_class($layer) . "\"");
+        }
+    }
     
     /**
      * 
@@ -1812,6 +1843,7 @@ JS;
         }, 100);
 JS;
     }
+
     
     protected function hasLeafletDraw() : bool
     {
