@@ -42,6 +42,8 @@ class UiPageTreeNode implements UiPageTreeNodeInterface, iHaveIcon
     
     private $published = true;
     
+    private bool $menuVisible = true;
+
     /**
      * 
      * @param WorkbenchInterface $exface
@@ -196,6 +198,26 @@ class UiPageTreeNode implements UiPageTreeNodeInterface, iHaveIcon
     public function getDescription() : ?string
     {
         return $this->description;
+    }
+    
+    /**
+     * 
+     * @param string $true_or_false
+     * @return UiMenuItemInterface
+     */
+    public function setMenuVisible(bool $true_or_false) : UiMenuItemInterface
+    {
+        $this->menuVisible = $true_or_false;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return bool
+     */
+    public function getMenuVisible() : bool
+    {
+        return $this->menuVisible;
     }
     
     /**

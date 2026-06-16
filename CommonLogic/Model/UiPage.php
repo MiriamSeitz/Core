@@ -793,7 +793,7 @@ class UiPage implements UiPageInterface
      * {@inheritDoc}
      * @see \exface\Core\Interfaces\Model\UiPageInterface::getMenuVisible()
      */
-    public function getMenuVisible()
+    public function getMenuVisible(): bool
     {
         return $this->menuVisible;
     }
@@ -803,7 +803,7 @@ class UiPage implements UiPageInterface
      * {@inheritDoc}
      * @see \exface\Core\Interfaces\Model\UiPageInterface::setMenuVisible()
      */
-    public function setMenuVisible($menuVisible)
+    public function setMenuVisible($menuVisible) : UiPageInterface
     {
         if (! is_null($menuVisible)) {
             $this->menuVisible = BooleanDataType::cast($menuVisible);
