@@ -255,7 +255,7 @@ interface UiPageInterface extends UiMenuItemInterface, iCanBeConvertedToUxon, iC
      * 
      * @return boolean
      */
-    public function getMenuVisible();
+    public function getMenuVisible(): bool;
 
     /**
      * Sets if the page is shown in the menu. (Default: true)
@@ -263,7 +263,7 @@ interface UiPageInterface extends UiMenuItemInterface, iCanBeConvertedToUxon, iC
      * @param boolean $menuVisible
      * @return UiPageInterface
      */
-    public function setMenuVisible($menuVisible);
+    public function setMenuVisible(bool $menuVisible) : UiPageInterface;
 
     /**
      * 

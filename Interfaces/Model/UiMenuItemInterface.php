@@ -111,6 +111,19 @@ interface UiMenuItemInterface extends WorkbenchDependantInterface, AliasInterfac
     public function isPublished() : bool;
     
     /**
+     * 
+     * @param bool $true_or_false
+     * @return UiMenuItemInterface
+     */
+    public function setMenuVisible(bool $true_or_false) : UiMenuItemInterface;
+    
+    /**
+     * 
+     * @return bool
+     */
+    public function getMenuVisible() : bool;
+    
+    /**
      *
      * @param UiPageGroupSelectorInterface $selector
      * @return bool
